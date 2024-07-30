@@ -1,4 +1,4 @@
-package maids.library;
+package cc.maids.library;
 
 import org.junit.jupiter.api.Test;
 
