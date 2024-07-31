@@ -1,6 +1,7 @@
 package cc.maids.library.controller;
 
 
+import java.util.List;
 
 import lombok.RequiredArgsConstructor;
 
@@ -36,6 +37,18 @@ public class BookController {
     Book createdBook = bookService.addBook(bookMapper.convertValue(bookDTO, Book.class));
     return new ResponseEntity<>(bookMapper.convertValue(createdBook, BookDTO.class),
         HttpStatus.CREATED);
+  }
+
+  @GetMapping
+  @Operation(
+      summary = "Get all books",
+      description = "Retrieve a list of all books"
+  )
+  public ResponseEntity<List<BookDTO>> getAllBooks() {
+
+    List<BookDTO> foundBooks = bookService.getAllBooks().stream()
+        .map(book -> bookMapper.convertValue(book, BookDTO.class)).toList();
+    return ResponseEntity.ok(foundBooks);
   }
 
 }
