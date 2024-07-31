@@ -3,6 +3,7 @@ package cc.maids.library.model;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,6 +24,7 @@ public class Book {
 
   private Integer publicationYear;
 
+  @Column(nullable = false, unique = true)
   private String isbn;
 }
 

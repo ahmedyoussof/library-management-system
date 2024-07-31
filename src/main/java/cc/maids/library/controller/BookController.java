@@ -1,10 +1,15 @@
 package cc.maids.library.controller;
 
 
+
 import lombok.RequiredArgsConstructor;
 
+import cc.maids.library.dto.BookDTO;
 import cc.maids.library.model.Book;
 import cc.maids.library.service.BookService;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.validation.Valid;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +23,7 @@ import io.swagger.v3.oas.annotations.Operation;
 public class BookController {
 
   private final BookService bookService;
+  private final ObjectMapper bookMapper ;
 
 
   @PostMapping
@@ -25,10 +31,11 @@ public class BookController {
     summary = "Add a new book",
     description = "Add a new book to the library"
   )
-  public ResponseEntity<Book> addBook(
-      @RequestBody Book book) {
-    Book createdBook = bookService.addBook(book);
-    return new ResponseEntity<>(createdBook, HttpStatus.CREATED);
+  public ResponseEntity<BookDTO> addBook(@Valid @RequestBody BookDTO bookDTO) {
+
+    Book createdBook = bookService.addBook(bookMapper.convertValue(bookDTO, Book.class));
+    return new ResponseEntity<>(bookMapper.convertValue(createdBook, BookDTO.class),
+        HttpStatus.CREATED);
   }
 
 }
