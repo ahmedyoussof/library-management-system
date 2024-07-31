@@ -18,7 +18,7 @@ public class SecurityConfig {
 
   private static final String API_URL = "/api";
   public static final String INCLUDE_ALL_URL = "/**";
-  private static final String ADMIN_ROLE = "ADMIN_ROLE";
+  private static final String ADMIN_ROLE = "ADMIN";
 
   @Bean
   public SecurityFilterChain adminFilterChain(HttpSecurity http) throws Exception {
