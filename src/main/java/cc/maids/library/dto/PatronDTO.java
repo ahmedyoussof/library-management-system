@@ -16,6 +16,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 @AllArgsConstructor
 public class PatronDTO {
 
+  @Schema(hidden = true)
   private Long id;
 
   @Schema(example = "Patron Name")
