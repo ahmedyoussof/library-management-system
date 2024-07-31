@@ -15,7 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.v3.oas.annotations.Operation;
-
+import io.swagger.v3.oas.annotations.Parameter;
 
 
 @RestController
@@ -51,4 +51,47 @@ public class BookController {
     return ResponseEntity.ok(foundBooks);
   }
 
+  @GetMapping("/{id}")
+  @Operation(
+      summary = "Get a book by ID",
+      description = "Retrieve details of a specific book by ID",
+      parameters = {
+          @Parameter(name = "id", description = "ID of the book to retrieve", example = "1")
+      }
+  )
+  public ResponseEntity<BookDTO> getBookById(
+      @Parameter(description = "ID of the book to retrieve", example = "1") @PathVariable Long id) {
+
+    return ResponseEntity.ok(bookMapper.convertValue(bookService.getBookById(id), BookDTO.class));
+  }
+
+  @PutMapping("/{id}")
+  @Operation(
+      summary = "Update a book",
+      description = "Update an existing book's information",
+      parameters = {
+          @Parameter(name = "id", description = "ID of the book to be updated", example = "1")
+      }
+  )
+  public ResponseEntity<BookDTO> updateBook(
+      @Parameter(description = "ID of the book to be updated", example = "1") @PathVariable Long id,
+      @Valid @RequestBody BookDTO book) {
+
+    Book updatedBook = bookService.updateBook(id, bookMapper.convertValue(book, Book.class));
+    return ResponseEntity.ok(bookMapper.convertValue(updatedBook, BookDTO.class));
+  }
+
+  @DeleteMapping("/{id}")
+  @Operation(
+      summary = "Delete a book",
+      description = "Remove a book from the library",
+      parameters = {
+          @Parameter(name = "id", description = "ID of the book to be deleted", example = "1")
+      }
+  )
+  public ResponseEntity<Void> deleteBook(
+      @Parameter(description = "ID of the book to be deleted", example = "1") @PathVariable Long id) {
+    bookService.deleteBook(id);
+    return ResponseEntity.noContent().build();
+  }
 }
