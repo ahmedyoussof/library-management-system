@@ -62,5 +62,14 @@ public class LibraryExceptionHandler extends ResponseEntityExceptionHandler {
     return new ResponseEntity<>(errorDetails, status);
   }
 
+  @ExceptionHandler(ResourceNotFoundException.class)
+  public ResponseEntity<ErrorDetails> handleResourceNotFoundException(ResourceNotFoundException ex, WebRequest request) {
+    ErrorDetails errorDetails = ErrorDetails.builder()
+        .timestamp(LocalDateTime.now())
+        .message(ex.getMessage())
+        .details(request.getDescription(false))
+        .build();
+    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorDetails);
+  }
 
 }
