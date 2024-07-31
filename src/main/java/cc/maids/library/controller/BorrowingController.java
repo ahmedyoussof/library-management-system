@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 
 @RestController
 @RequestMapping("/api/borrow")
@@ -18,7 +19,11 @@ public class BorrowingController {
   @PostMapping("/{bookId}/patron/{patronId}")
   @Operation(
     summary = "Borrow a book",
-    description = "Allow a patron to borrow a book"
+    description = "Allow a patron to borrow a book",
+    parameters = {
+        @Parameter(name = "bookId", description = "ID of the book to borrow", example = "1"),
+        @Parameter(name = "patronId", description = "ID of the patron borrowing the book", example = "1")
+    }
   )
   public ResponseEntity<String> borrowBook(
       @PathVariable Long bookId,
@@ -36,7 +41,11 @@ public class BorrowingController {
   @PutMapping("/return/{bookId}/patron/{patronId}")
   @Operation(
     summary = "Return a borrowed book",
-    description = "Record the return of a borrowed book by a patron"
+    description = "Record the return of a borrowed book by a patron",
+    parameters = {
+        @Parameter(name = "bookId", description = "ID of the book to borrow", example = "1"),
+        @Parameter(name = "patronId", description = "ID of the patron borrowing the book", example = "1")
+    }
   )
   public ResponseEntity<String> returnBook(
       @PathVariable Long bookId,
