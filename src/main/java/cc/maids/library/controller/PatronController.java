@@ -15,11 +15,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 
 @RestController
 @RequestMapping("/api/patrons")
 @RequiredArgsConstructor
+@Tag(name = "Patron Controller", description = "Endpoints handling operations for Patrons")
 public class PatronController {
 
   private final PatronService patronService;

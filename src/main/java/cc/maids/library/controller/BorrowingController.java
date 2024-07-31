@@ -8,10 +8,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("/api/borrow")
 @RequiredArgsConstructor
+@Tag(name = "Borrowing Controller", description = "Endpoints handling borrowing operations for Books")
 public class BorrowingController {
 
   private final BorrowingService borrowingService;
