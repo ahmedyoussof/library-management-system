@@ -61,5 +61,35 @@ public class PatronController {
     return ResponseEntity.ok(patronMapper.convertValue(patronService.getPatronById(id), PatronDTO.class));
   }
 
+  @PutMapping("/{id}")
+  @Operation(
+      summary = "Update a patron",
+      description = "Update an existing patron's information",
+      parameters = {
+          @Parameter(name = "id", description = "ID of the patron to be updated", example = "1")
+      }
+  )
+  public ResponseEntity<PatronDTO> updatePatron(
+      @Parameter(description = "ID of the patron to be updated", example = "1") @PathVariable Long id,
+      @Valid @RequestBody PatronDTO patron) {
+
+    Patron updatedPatron = patronService.updatePatron(id, patronMapper.convertValue(patron, Patron.class));
+    return ResponseEntity.ok(patronMapper.convertValue(updatedPatron, PatronDTO.class));
+  }
+
+  @DeleteMapping("/{id}")
+  @Operation(
+      summary = "Delete a patron",
+      description = "Remove a patron from the library",
+      parameters = {
+          @Parameter(name = "id", description = "ID of the patron to be deleted", example = "1")
+      }
+  )
+  public ResponseEntity<Void> deletePatron(
+      @Parameter(description = "ID of the patron to be deleted", example = "1") @PathVariable Long id) {
+    patronService.deletePatron(id);
+    return ResponseEntity.noContent().build();
+  }
+
 }
 

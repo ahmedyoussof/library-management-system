@@ -12,4 +12,8 @@ public interface PatronService {
 
   Patron getPatronById(Long id);
 
+  Patron updatePatron(Long id, Patron book);
+
+  void deletePatron(Long id);
+
 }
