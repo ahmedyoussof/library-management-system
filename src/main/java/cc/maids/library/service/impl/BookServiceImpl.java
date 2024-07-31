@@ -1,4 +1,4 @@
-package cc.maids.library.service;
+package cc.maids.library.service.impl;
 
 import java.util.List;
 
@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import cc.maids.library.exception.ResourceNotFoundException;
 import cc.maids.library.model.Book;
 import cc.maids.library.repository.BookRepository;
+import cc.maids.library.service.BookService;
 
 @Service
 @RequiredArgsConstructor
