@@ -10,4 +10,6 @@ public interface PatronService {
 
   Patron addPatron(Patron patron);
 
+  Patron getPatronById(Long id);
+
 }

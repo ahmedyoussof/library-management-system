@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 
 
 @RestController
@@ -47,6 +48,18 @@ public class PatronController {
     return ResponseEntity.ok(foundPatrons);
   }
 
+  @GetMapping("/{id}")
+  @Operation(
+      summary = "Get a patron by ID",
+      description = "Retrieve details of a specific patron by ID",
+      parameters = {
+          @Parameter(name = "id", description = "ID of the patron to retrieve", example = "1")
+      }
+  )
+  public ResponseEntity<PatronDTO> getPatronById(@PathVariable Long id) {
+
+    return ResponseEntity.ok(patronMapper.convertValue(patronService.getPatronById(id), PatronDTO.class));
+  }
 
 }
 
